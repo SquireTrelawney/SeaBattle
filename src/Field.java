@@ -45,10 +45,26 @@ public class Field {
 					if (cells[i][j] == 1) {
 						g.setColor(Color.RED);
 						g.fillRect(leftIndent + j * cellSize, topIndent + i * cellSize, cellSize, cellSize);
-					} else if (cells[i][j] == -1) {
-						g.setColor(Color.BLACK);
-						g.fillOval(leftIndent + j * cellSize, topIndent + i * cellSize, cellSize, cellSize);
-					}
+					} 
+//					else if (cells[i][j] == -1) {
+//						g.setColor(Color.BLACK);
+//						g.fillOval(leftIndent + j * cellSize, topIndent + i * cellSize, cellSize, cellSize);
+//					}
+					
+				}
+				
+				
+				if(cells[i][j] == 2) {
+					g.setColor(Color.YELLOW);
+					g.fillRect(leftIndent + j * cellSize, topIndent + i * cellSize, cellSize, cellSize);
+				}
+				if(cells[i][j] == 3) {
+					g.setColor(Color.MAGENTA);
+					g.fillRect(leftIndent + j * cellSize, topIndent + i * cellSize, cellSize, cellSize);
+				}
+				if (cells[i][j] == -2) {
+					g.setColor(Color.BLACK);
+					g.fillOval(leftIndent + j * cellSize, topIndent + i * cellSize, cellSize, cellSize);
 				}
 
 			}
@@ -64,17 +80,25 @@ public class Field {
 
 	}
 	public int shoot(int x, int y) {
-		if(cells[y][x] > 0) {
-			cells[y][x]--;
+		if(cells[y][x] == 1) {
+			cells[y][x] = 2;
+			
+			searchKilledShips();
+			
 			return 1;
-		}else if(cells[y][x] < 0){
+		}else if(cells[y][x] == 2 || cells[y][x] == 3  || cells[y][x] == -2) {
 			return 1;
 		}else {
-			cells[y][x]--;
+			cells[y][x] = -2;
 			return 0;
 		}
 	}
 	
+	public void searchKilledShips() {
+		for(int i = 0; i < 10; i++) {
+			ships[i].kill(cells);
+		}
+	}
 	
 	
 

@@ -45,17 +45,17 @@ public class Frame extends JFrame{
 		}
 		
 		
-	}
-	
-	
-	
-	
+	}	
 	public class MyMouse implements MouseListener{
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			panel.game.playerTurn(e.getX(), e.getY());
-			panel.repaint();
+			if(e.getX() >= panel.game.computerLeftIndent && e.getX() <= panel.game.computerLeftIndent + panel.game.cellSize * panel.game.fieldSize 
+					&& e.getY() >= panel.game.topIndent && e.getY() <= panel.game.topIndent + panel.game.cellSize * panel.game.fieldSize) {
+				panel.game.playerTurn(e.getX(), e.getY());
+				panel.repaint();
+			}
+			
 			
 		}
 
