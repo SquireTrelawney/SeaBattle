@@ -41,16 +41,11 @@ public class Field {
 		for (int i = 0; i < fieldSize; i++) {
 			for (int j = 0; j < fieldSize; j++) {
 
-				if (true) {
+				if (!isComputerField) {
 					if (cells[i][j] == 1) {
 						g.setColor(Color.RED);
 						g.fillRect(leftIndent + j * cellSize, topIndent + i * cellSize, cellSize, cellSize);
-					} 
-//					else if (cells[i][j] == -1) {
-//						g.setColor(Color.BLACK);
-//						g.fillOval(leftIndent + j * cellSize, topIndent + i * cellSize, cellSize, cellSize);
-//					}
-					
+					} 					
 				}
 				
 				
@@ -81,18 +76,30 @@ public class Field {
 	}
 	public int shoot(int x, int y) {
 		if(cells[y][x] == 1) {
-			cells[y][x] = 2;
-			
-			searchKilledShips();
-			
-			return 1;
-		}else if(cells[y][x] == 2 || cells[y][x] == 3  || cells[y][x] == -2) {
-			return 1;
+			cells[y][x] = 2;		
+			searchKilledShips();		
+			return 1; // попали по кораблю
+		}else if(cells[y][x] == 2){
+			return 2; // попали в раненую клетку => продолжить стрелять в том же направлении
+		}else if(cells[y][x] == 3  || cells[y][x] == -2) {
+			return 3; // повторить выстрел в другую клетку
 		}else {
 			cells[y][x] = -2;
-			return 0;
+			return 0; // промах
 		}
 	}
+	public int countOfDamagedShipCells() {
+		int count = 0;
+		for(int i = 0; i < fieldSize; i++) {
+			for(int j = 0; j < fieldSize; j++) {
+				if(cells[i][j] == 2) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+	
 	
 	public void searchKilledShips() {
 		for(int i = 0; i < 10; i++) {

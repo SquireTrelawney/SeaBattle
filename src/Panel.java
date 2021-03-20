@@ -12,15 +12,6 @@ public class Panel extends JPanel{
 	Panel(){
 		setLayout(null);
 		game = new Game();
-//		tm = new Timer(100, new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// TODO Auto-generated method stub
-//				repaint();
-//			}
-//		});
-//		tm.start();
 		repaint();
 		
 		JButton nGameBtn = new JButton("Новая игра");
