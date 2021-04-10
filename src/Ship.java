@@ -97,7 +97,7 @@ public class Ship {
 		int x = this.x;
 		int y = this.y;
 		for (int i = 0; i < len; i++) {
-			if (cells[y][x] == 2) {
+			if (cells[y][x] == 2 || cells[y][x] == 3) {
 				k++;
 			}
 			y += dirY;

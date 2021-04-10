@@ -5,8 +5,11 @@ public class Game {
 	fieldSize, cellSize, dirX, dirY, x, y;
 	Random rn = new Random();
 	Field playerField, computerField;
+	boolean isGameEnded;
+	
 	
 	Game(){
+		isGameEnded = false;
 		topIndent = 150;
 		centerIndent = 250;
 		fieldSize = 10;
@@ -40,7 +43,9 @@ public class Game {
 		}
 	}
 	public void computerTurn() {
-		int code;
+		isGameEnded = checkEndGame();
+		if(!isGameEnded) {
+			int code;
 		while((code = playerField.shoot(x, y)) > 0) {
 			int damagedCount = playerField.countOfDamagedShipCells();
 			if(damagedCount > 0) {
@@ -75,9 +80,14 @@ public class Game {
 				dirY = 0;
 			}
 		}	
-	}
-	
+		
+		
+    }
+		}
+
 	public void playerTurn(int x, int y) {
+		isGameEnded = checkEndGame();
+		if(!isGameEnded) {
 		x -= computerLeftIndent;
 		y -= topIndent;
 		x /= cellSize;
@@ -88,3 +98,20 @@ public class Game {
 	}
 	
 }
+	
+	public boolean checkEndGame() {
+	
+	    return computerWin() || playerWin();
+}
+	public boolean computerWin() {
+		return playerField.isAllDeath();
+	}   
+	
+	public boolean playerWin() {
+		return computerField.isAllDeath();
+	}
+	
+	
+	
+}
+	
